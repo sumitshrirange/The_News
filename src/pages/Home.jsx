@@ -52,7 +52,7 @@ function NewsSection({ title, topic, viewAllLink, maxItems = 4, layout = "grid" 
     >
       {isGrid ? (
         <>
-          <div className="relative h-60 w-full">
+          <div className="relative h-60 w-full overflow-hidden">
             <img
               src={article.thumbnail}
               alt={article.title}
