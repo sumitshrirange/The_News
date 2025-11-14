@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import logo from "../../assets/logo.png";
 
 function ForgotPassword() {
-  const BACKEND_URL = import.meta.env.BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const navigate = useNavigate();

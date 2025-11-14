@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import logo from "../../assets/logo.png";
 
 function ChangePassword() {
-  const BACKEND_URL = import.meta.env.BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const { email } = useParams();
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);

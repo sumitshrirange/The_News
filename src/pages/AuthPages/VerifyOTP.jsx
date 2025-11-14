@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import logo from "../../assets/logo.png";
 
 function VerifyOTP() {
-  const BACKEND_URL = import.meta.env.BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);

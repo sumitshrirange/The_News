@@ -4,7 +4,7 @@ import axios from "axios";
 export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const BACKEND_URL = import.meta.env.BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 

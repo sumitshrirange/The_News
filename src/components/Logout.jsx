@@ -6,7 +6,7 @@ import { BarLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
 function Logout() {
-  const BACKEND_URL = import.meta.env.BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const Token = localStorage.getItem("Token");
   const [isLoading, setIsLoading] = useState(false);
