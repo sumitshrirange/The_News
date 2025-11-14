@@ -1,0 +1,151 @@
+import React, { useState } from "react";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa";
+import { PulseLoader } from "react-spinners";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import logo from "../../assets/logo.png";
+
+const Register = () => {
+  const BACKEND_URL = import.meta.env.BACKEND_URL;
+  const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+      const res = await axios.post(
+        `${BACKEND_URL}/api/auth/register`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (res.data.success) {
+        navigate("/verify");
+        toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message || error.response.data.error[0]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="absolute h-full w-full p-3 bg-blue-200 top-0 left-0">
+      <img className="w-32 m-4" src={logo} alt="The News logo" />
+
+      <div className="flex items-center w-full h-[90%] justify-center">
+        <div className="flex flex-col items-center gap-2 bg-white shadow-2xl shadow-blue-500 w-80 md:w-90 rounded-[12px] p-5">
+          <div className="p-2 bg-blue-200 rounded-full w-fit">
+            <FaRegUser className="text-blue-700 size-5 md:size-4.5" />
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-xl font-semibold">Create Account</span>
+            <small className="text-gray-400">
+              Enter the details to sign up
+            </small>
+          </div>
+
+          <div className="flex flex-col self-start w-full gap-3 mt-3">
+            <div className="flex flex-col">
+              <label htmlFor="name" className="mb-1 text-xs text-gray-500">
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                onChange={handleInputChange}
+                value={formData.name}
+                placeholder="John Doe"
+                id="name"
+                className="border-2 w-full border-gray-200 p-1.5 text-sm rounded-md outline-none"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="email" className="mb-1 text-xs text-gray-500">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                onChange={handleInputChange}
+                value={formData.email}
+                placeholder="johndoe@gmail.com"
+                id="email"
+                className="border-2 w-full border-gray-200 p-1.5 text-sm rounded-md outline-none"
+                required
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="password" className="mb-1 text-xs text-gray-500">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPass ? `text` : `password`}
+                  name="password"
+                  onChange={handleInputChange}
+                  value={formData.password}
+                  placeholder="Enter your password"
+                  id="password"
+                  className="border-2 w-full border-gray-200 p-1.5 pr-9 text-sm rounded-md outline-none"
+                  required
+                />
+
+                <span
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-3 top-2.5 text-gray-400 cursor-pointer"
+                >
+                  {showPass ? <IoIosEyeOff /> : <IoIosEye />}
+                </span>
+              </div>
+            </div>
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="py-2 mt-1 text-sm font-semibold text-white duration-200 bg-blue-500 rounded-md cursor-pointer hover:bg-blue-400"
+            >
+              {isLoading ? <PulseLoader size={8} color="white" /> : "Register"}
+            </button>
+            <span className="self-center text-xs text-gray-500">
+              Already have an account?{" "}
+              <Link
+                to={"/login"}
+                className="font-semibold text-blue-400 underline"
+              >
+                Login
+              </Link>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Register;

@@ -1,23 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { BiWorld } from "react-icons/bi";
-import {
-  FaFacebook,
-  FaLinkedin,
-  FaYoutube,
-  FaTwitter,
-  FaRedditAlien,
-} from "react-icons/fa";
 import logo from "../assets/logo.png";
-
-// Social Media Links (easily extendable)
-const socialLinks = [
-  { icon: <FaFacebook />, href: "https://facebook.com" },
-  { icon: <FaLinkedin />, href: "https://linkedin.com" },
-  { icon: <FaYoutube />, href: "https://youtube.com" },
-  { icon: <FaTwitter />, href: "https://twitter.com" },
-  { icon: <FaRedditAlien />, href: "https://reddit.com" },
-];
+import { AiOutlineLogin } from "react-icons/ai";
+import { getUser } from "../context/userContext";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { useState } from "react";
+import Logout from "./Logout";
 
 // Utility function for formatted date
 const getFormattedDate = () =>
@@ -29,6 +18,9 @@ const getFormattedDate = () =>
   });
 
 function Header() {
+  const { user } = getUser();
+  const [isShowing, setIsShowing] = useState(false);
+
   return (
     <header className="w-full flex flex-col items-center">
       {/* Top Bar */}
@@ -39,19 +31,47 @@ function Header() {
           <p className="text-sm font-semibold">{getFormattedDate()}</p>
         </div>
 
-        {/* Social Links */}
-        <div className="flex items-center gap-3.5 text-gray-600 text-sm">
-          {socialLinks.map((social, idx) => (
-            <a
-              key={idx}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-red-700 transition-colors duration-200"
+        <div>
+          {user ? (
+            <div className="relative">
+              <div
+                onClick={() => setIsShowing(!isShowing)}
+                className="flex items-center gap-2 cursor-pointer hover:bg-blue-100 duration-200 rounded-l-full"
+              >
+                <span className="size-6 text-center bg-blue-100 text-blue-900 rounded-full">
+                  {user.name[0]}
+                </span>
+                {user.name.split(" ")[0]}
+                <IoMdArrowDropdown />
+              </div>
+              <div
+                className={`${
+                  isShowing ? "absolute" : "hidden"
+                } right-0 shadow-md mt-2.5 p-2 bg-white`}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="size-10 text-2xl pt-1 text-center bg-blue-100 text-blue-900 rounded-full">
+                    {user.name[0]}
+                  </span>
+                  <div className="leading-4.5">
+                    <h3 className="uppercase font-semibold tracking-wide">
+                      {user.name}
+                    </h3>
+                    <small className="opacity-50">{user.email}</small>
+                  </div>
+                </div>
+                <Logout />
+              </div>
+            </div>
+          ) : (
+            <Link
+              to={"/register"}
+              className="flex items-center gap-1 text-sm md:text-[16px]"
             >
-              {social.icon}
-            </a>
-          ))}
+              <AiOutlineLogin />
+              Register
+            </Link>
+          )}
         </div>
       </div>
 

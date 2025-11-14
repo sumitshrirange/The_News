@@ -19,11 +19,25 @@ import Science from "./pages/Science.jsx";
 import NewsDetail from "./pages/NewsDetail.jsx";
 import Entertainment from "./pages/Entertainment.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Login from "./pages/AuthPages/Login.jsx";
+import Register from "./pages/AuthPages/Register.jsx";
+import VerifyEmail from "./pages/AuthPages/VerifyEmail.jsx";
+import Verify from "./pages/AuthPages/Verify.jsx";
+import ForgotPassword from "./pages/AuthPages/ForgotPassword.jsx";
+import VerifyOTP from "./pages/AuthPages/VerifyOTP.jsx";
+import ChangePassword from "./pages/AuthPages/ChangePassword.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/verify" element={<VerifyEmail />} />
+      <Route path="/verify/:token" element={<Verify />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/verify-otp/:email" element={<VerifyOTP />} />
+      <Route path="/change-password/:email" element={<ChangePassword />} />
       <Route path="/topnews" element={<TopNews />} />
       <Route path="/worldnews" element={<WorldNews />} />
       <Route path="/business" element={<Business />} />
