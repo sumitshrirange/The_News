@@ -16,10 +16,10 @@ function OAuth() {
     <>
       <div
         onClick={handleGoogleLogin}
-        className="flex items-center border border-blue-500 overflow-hidden mt-2 cursor-pointer"
+        className="flex items-center border shadow-md shadow-blue-300 rounded-md border-blue-500 overflow-hidden mt-2 cursor-pointer"
       >
         <FcGoogle size={22} className="mx-2" />
-        <span className="text-sm text-center bg-blue-500 hover:bg-blue-400 hover:text-white duration-150 py-1.5 px-4 text-gray-100">
+        <span className="text-sm text-center bg-blue-500 font-semibold hover:bg-blue-400 hover:text-white duration-150 py-1.5 pl-4 pr-7 text-gray-100">
           Continue with Google
         </span>
       </div>

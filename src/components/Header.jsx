@@ -5,6 +5,7 @@ import logo from "../assets/logo.png";
 import { AiOutlineLogin } from "react-icons/ai";
 import { getUser } from "../context/userContext";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropup } from "react-icons/io";
 import { useState } from "react";
 import Logout from "./Logout";
 
@@ -37,7 +38,7 @@ function Header() {
             <div className="relative">
               <div
                 onClick={() => setIsShowing(!isShowing)}
-                className="flex items-center gap-2 cursor-pointer hover:bg-blue-100 duration-200 rounded-l-full"
+                className="flex items-center gap-2 cursor-pointer rounded-l-full"
               >
                 <span className="size-6 text-center bg-blue-100 text-blue-900 rounded-full">
                   {userToken ? (
@@ -52,7 +53,7 @@ function Header() {
                   )}
                 </span>
                 {user.name.split(" ")[0]}
-                <IoMdArrowDropdown />
+                {isShowing ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
               </div>
               <div
                 className={`${
