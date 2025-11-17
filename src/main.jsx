@@ -26,6 +26,7 @@ import Verify from "./pages/AuthPages/Verify.jsx";
 import ForgotPassword from "./pages/AuthPages/ForgotPassword.jsx";
 import VerifyOTP from "./pages/AuthPages/VerifyOTP.jsx";
 import ChangePassword from "./pages/AuthPages/ChangePassword.jsx";
+import SuccessLogin from "./components/SuccessLogin.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
       <Route path="/science" element={<Science />} />
       <Route path="/entertainment" element={<Entertainment />} />
       <Route path="/news/:id" element={<NewsDetail />} />
+      <Route path="/success-login" element={<SuccessLogin />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

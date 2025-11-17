@@ -20,6 +20,7 @@ const getFormattedDate = () =>
 function Header() {
   const { user } = getUser();
   const [isShowing, setIsShowing] = useState(false);
+  const userToken = localStorage.getItem("userToken");
 
   return (
     <header className="w-full flex flex-col items-center">
@@ -39,7 +40,16 @@ function Header() {
                 className="flex items-center gap-2 cursor-pointer hover:bg-blue-100 duration-200 rounded-l-full"
               >
                 <span className="size-6 text-center bg-blue-100 text-blue-900 rounded-full">
-                  {user.name[0]}
+                  {userToken ? (
+                    <img
+                      className="rounded-full"
+                      src={user.picture}
+                      alt="User profile image"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    `${user.name[0]}`
+                  )}
                 </span>
                 {user.name.split(" ")[0]}
                 <IoMdArrowDropdown />
@@ -49,9 +59,18 @@ function Header() {
                   isShowing ? "absolute" : "hidden"
                 } right-0 shadow-md mt-2.5 p-2 bg-white`}
               >
-                <div className="flex items-center gap-2">
-                  <span className="size-10 text-2xl pt-1 text-center bg-blue-100 text-blue-900 rounded-full">
-                    {user.name[0]}
+                <div className="flex items-center gap-2 pt-1">
+                  <span className="size-10 text-2xl text-center bg-blue-100 text-blue-900 rounded-full">
+                    {userToken ? (
+                      <img
+                        className="rounded-full"
+                        src={user.picture}
+                        alt="User profile image"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      `${user.name[0]}`
+                    )}
                   </span>
                   <div className="leading-4.5">
                     <h3 className="uppercase font-semibold tracking-wide">

@@ -11,15 +11,20 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("Token");
-      if (!token) {
-        setLoading(false);
-        return;
-      }
+      const userToken = localStorage.getItem("userToken");
 
       try {
-        const res = await axios.get(`${BACKEND_URL}/api/user/data`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        let res;
+
+        token &&
+          (res = await axios.get(`${BACKEND_URL}/api/user/data`, {
+            headers: { Authorization: `Bearer ${token}` },
+          }));
+
+        userToken &&
+          (res = await axios.get(`${BACKEND_URL}/auth/user`, {
+            withCredentials: true,
+          }));
 
         if (res.data.success) {
           setUser(res.data.user);

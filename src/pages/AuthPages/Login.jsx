@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import { PulseLoader } from "react-spinners";
@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import logo from "../../assets/logo.png";
+import OAuth from "./OAuth";
 
 const Login = () => {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -16,6 +17,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    toast.info("Continue with Google: Quick and secure.");
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -69,7 +74,9 @@ const Login = () => {
             </small>
           </div>
 
-          <div className="flex flex-col self-start w-full gap-3 mt-3">
+          <OAuth />
+
+          <div className="flex flex-col self-start w-full gap-3 mt-1">
             <div className="flex flex-col">
               <label htmlFor="" className="mb-1 text-xs text-gray-500">
                 Email Address

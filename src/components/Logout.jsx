@@ -9,20 +9,32 @@ function Logout() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const Token = localStorage.getItem("Token");
+  const userToken = localStorage.getItem("userToken");
   const [isLoading, setIsLoading] = useState(false);
 
   const logoutHandler = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.post(
-        `${BACKEND_URL}/api/auth/logout`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }
-      );
+
+      let res;
+
+      Token &&
+        (res = await axios.post(
+          `${BACKEND_URL}/api/auth/logout`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        ));
+
+      userToken &&
+        (res = await axios.post(
+          `${BACKEND_URL}/auth/logout`,
+          {},
+          { withCredentials: true }
+        ));
 
       if (res.data.success) {
         toast.success(res.data.message);
